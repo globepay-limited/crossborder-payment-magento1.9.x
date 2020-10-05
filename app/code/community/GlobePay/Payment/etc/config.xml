@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+
+<config>
+	<modules>
+		<Globepay_Payment>
+			<version>1.0.0</version>
+		</Globepay_Payment>
+	</modules>
+
+	<global>
+		<models>
+			<globepay>
+				<class>Globepay_Payment_Model</class>
+			</globepay>
+		</models>
+
+		<blocks>
+			<globepay>
+				<class>Globepay_Payment_Block</class>
+			</globepay>
+		</blocks>
+
+		<resources>
+			<globepay_setup>
+				<setup>
+					<module>Globepay_Payment</module>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</globepay_setup>
+			<globepay_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</globepay_write>
+			<globepay_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</globepay_read>
+		</resources>
+		<helpers>
+			<globepay>
+				<class>Globepay_Payment_Helper</class>
+			</globepay>
+		</helpers>	
+		<events>
+			<sales_model_service_quote_submit_success>
+				<observers>
+					<globepay_sales_model_service_quote_submit_success>
+							<type>singleton</type>
+							<class>Globepay_Payment_Model_Observer</class>
+							<method>sales_model_service_quote_submit_success</method>
+					</globepay_sales_model_service_quote_submit_success>
+				</observers>
+			</sales_model_service_quote_submit_success>
+		</events>	
+	</global>
+
+
+	<frontend>
+		<secure_url>
+			<globepay_redirect>/globepay/redirect/00</globepay_redirect>
+		</secure_url>
+		<routers>
+			<globepay>
+				<use>standard</use>
+				<args>
+					<module>Globepay_Payment</module>
+					<frontName>globepay</frontName>
+				</args>
+			</globepay>
+		</routers>
+		<translate>
+			<modules>
+				<Globepay_Payment>
+					<files>
+						<default>Globepay_Payment.csv</default>
+					</files>
+				</Globepay_Payment>
+			</modules>
+		</translate>
+		<layout>
+            <updates>
+                <globepay>
+                    <file>globepay/layout.xml</file>
+                </globepay>
+            </updates>
+        </layout>
+	</frontend>
+
+
+	<adminhtml>
+		<translate>
+			<modules>
+				<Globepay_Payment>
+					<files>
+						<default>Globepay_Payment.csv</default>
+					</files>
+				</Globepay_Payment>
+			</modules>
+		</translate>
+	</adminhtml>
+
+	<default>
+		<payment>
+			<globepay>
+				<active>0</active>
+				<model>globepay/globepay</model>
+				<order_status>pending</order_status>
+				<title>Wechat Pay</title>
+				<description>You will be redirected to Wecha Pay payment when you place an order.</description>
+				<sort_order>0</sort_order>
+			</globepay>
+		</payment>
+	</default>
+</config>

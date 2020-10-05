@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+
+<config>
+	<modules>
+		<Globepayalipay_Payment>
+			<version>1.0.0</version>
+		</Globepayalipay_Payment>
+	</modules>
+
+	<global>
+		<models>
+			<globepayalipay>
+				<class>Globepayalipay_Payment_Model</class>
+			</globepayalipay>
+		</models>
+
+		<blocks>
+			<globepayalipay>
+				<class>Globepayalipay_Payment_Block</class>
+			</globepayalipay>
+		</blocks>
+
+		<resources>
+			<globepayalipay_setup>
+				<setup>
+					<module>Globepayalipay_Payment</module>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</globepayalipay_setup>
+			<globepayalipay_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</globepayalipay_write>
+			<globepayalipay_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</globepayalipay_read>
+		</resources>
+		<helpers>
+			<globepayalipay>
+				<class>Globepayalipay_Payment_Helper</class>
+			</globepayalipay>
+		</helpers>	
+		<events>
+			<sales_model_service_quote_submit_success>
+				<observers>
+					<globepayalipay_sales_model_service_quote_submit_success>
+							<type>singleton</type>
+							<class>Globepayalipay_Payment_Model_Observer</class>
+							<method>sales_model_service_quote_submit_success</method>
+					</globepayalipay_sales_model_service_quote_submit_success>
+				</observers>
+			</sales_model_service_quote_submit_success>
+		</events>	
+	</global>
+
+
+	<frontend>
+		<secure_url>
+			<globepayalipay_redirect>/globepayalipay/redirect/00</globepayalipay_redirect>
+		</secure_url>
+		<routers>
+			<globepayalipay>
+				<use>standard</use>
+				<args>
+					<module>Globepayalipay_Payment</module>
+					<frontName>globepayalipay</frontName>
+				</args>
+			</globepayalipay>
+		</routers>
+		<translate>
+			<modules>
+				<Globepayalipay_Payment>
+					<files>
+						<default>Globepayalipay_Payment.csv</default>
+					</files>
+				</Globepayalipay_Payment>
+			</modules>
+		</translate>
+		<layout>
+            <updates>
+                <globepayalipay>
+                    <file>globepayalipay/layout.xml</file>
+                </globepayalipay>
+            </updates>
+        </layout>
+	</frontend>
+
+
+	<adminhtml>
+		<translate>
+			<modules>
+				<Globepayalipay_Payment>
+					<files>
+						<default>Globepayalipay_Payment.csv</default>
+					</files>
+				</Globepayalipay_Payment>
+			</modules>
+		</translate>
+	</adminhtml>
+
+	<default>
+		<payment>
+			<globepayalipay>
+				<active>0</active>
+				<model>globepayalipay/globepayalipay</model>
+				<order_status>pending</order_status>
+				<title>Alipay</title>
+				<description>You will be redirected to Alipay payment when you place an order.</description>
+				<sort_order>0</sort_order>
+			</globepayalipay>
+		</payment>
+	</default>
+</config>
